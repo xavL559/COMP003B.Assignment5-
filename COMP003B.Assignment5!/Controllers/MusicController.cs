@@ -49,10 +49,16 @@ namespace COMP003B.Assignment5.Controllers
         }
 
         //DELETE
-        
-        public void Delete(int id)
-        {
 
+        [HttpDelete("{Id}")]
+        public ActionResult Delete(int id)
+        {
+            bool badThingsHappened = false;
+
+            if (badThingsHappened)
+                return BadRequest();
+
+            return NoContent();
         }
     }
 
