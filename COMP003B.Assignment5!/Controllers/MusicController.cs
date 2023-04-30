@@ -3,9 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace COMP003B.Assignment5.Controllers
 {
-
+    [Route("api/[controller]")]
     [ApiController]
-    [Route("[controller]")]
     public class MusicController : ControllerBase
     {
         List<MusicPeople> musicPeoples = new List<MusicPeople>();
@@ -19,38 +18,37 @@ namespace COMP003B.Assignment5.Controllers
             musicPeoples.Add(new MusicPeople { Id = 5, Title = "Regulate", Artist = "Warren G", Album = "Above the Rim", ReleaseYear = "1994" });
         }
 
-        //Get ALl
-        
-        public List<MusicPeople> Get()
+
+        [HttpGet]
+        public List<MusicPeople> GetMusicPeople() 
         {
             return musicPeoples;
         }
 
-
-        //Get single id
-        
+        [HttpGet("{Id}")]
         public MusicPeople Get(int id)
         {
             return musicPeoples.Where(x => x.Id == id).FirstOrDefault();
         }
 
-        //POST
-        
-        public void Post(MusicPeople val)
+        [HttpPost]
+        public ActionResult AddNewMusic([FromBody] MusicPeople people)
         {
-            musicPeoples.Add(val);
+            bool badThingsHappened = false;
+            if (badThingsHappened)
+                return BadRequest();
+
+            return Ok(people);
         }
 
-        //PUT
-        
+        [HttpPut]
         public void Put(int id, [FromBody] string music)
         {
 
         }
 
-        //DELETE
-
         [HttpDelete("{Id}")]
+
         public ActionResult Delete(int id)
         {
             bool badThingsHappened = false;
@@ -62,6 +60,6 @@ namespace COMP003B.Assignment5.Controllers
         }
     }
 
-    }
+   }
 
 
